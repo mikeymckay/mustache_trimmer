@@ -1,0 +1,112 @@
+<html>
+<head>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js" type="text/javascript"></script>
+<script src="mustache.js" type="text/javascript"></script>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#json,#mustache').keypress( function() {
+      updateResult()
+    });
+    updateResult();
+  });
+  function updateResult(){
+    template = $('#mustache').val();
+    //json = JSON.parse("{\"name\":\"mike\"}")
+    json = JSON.parse($('#json').val());
+    result = Mustache.to_html(template,json);
+    $('#result_string').html(result);
+    $('#result_rendered').html(result);
+  }
+</script>
+<style>
+  textarea{
+    height: 300px;
+    width: 400px;
+    display: block;
+    font-size:small;
+  }
+  div{
+    position: fixed;
+  }
+  .left{
+    left: 5px;
+  }
+  .right{
+    left: 410px;
+  }
+  .bottom-left{
+    left: 5px;
+    top: 350px;
+  }
+  .bottom-right{
+    left: 410px;
+    top: 350px;
+  }
+</style>
+</head>
+<body>
+<div class='left'>
+Mustache Template
+<textarea id='mustache'>
+{{#forms}}
+{{name}}
+<form>
+{{#fields}}
+{{question}}<input name='{{question}}' type='{{type}}'></input>
+{{/fields}}
+</form>
+{{/forms}}
+</textarea>
+</div>
+<div class='right'>
+JSON data
+<textarea id='json'>
+{
+  "forms" : [
+    {
+      "id": "asdasd1231",
+      "name": "New Patient Form",
+      "fields": [
+        {
+          "question" : "Name",
+          "type" : "text",
+        },
+        {
+          "question" : "Phone number",
+          "type" : "text",
+        },
+
+      ],
+      "creator": "mikeymckay",
+    },
+    {
+      "id": "asdasd1231",
+      "name": "Existing Patient Form",
+      "fields": [
+        {
+          "question" : "Name",
+          "type" : "text",
+        },
+        {
+          "question" : "Phone number",
+          "type" : "text",
+        },
+
+      ],
+      "creator": "mikeymckay",
+    },
+  ]
+}
+</textarea>
+</div>
+<div class='bottom-left'>
+Result
+<textarea id='result_string'>
+</textarea>
+</div>
+<div class='bottom-right'>
+  <div id='result_rendered'>
+  </div>
+</div>
+</body>
+</html>
