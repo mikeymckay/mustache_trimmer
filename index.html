@@ -10,7 +10,6 @@
   });
   function updateResult(){
     template = $('#mustache').val();
-    //json = JSON.parse("{\"name\":\"mike\"}")
     json = JSON.parse($('#json').val());
     result = Mustache.to_html(template,json);
     $('#result_string').html(result);
